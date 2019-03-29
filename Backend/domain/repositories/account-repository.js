@@ -3,7 +3,8 @@
 const bcrypt = require('bcrypt');
 const uuidV4 = require('uuid/v4');
 const mysqlPool = require('../../databases/mysql-pool');
-const mongoPool = require('../../databases/mongo-pool');
+
+// Create account functions
 /**
  * Insert the user into the database generating an uuid and calculating the bcrypt password
  * @param {String} email
@@ -31,20 +32,24 @@ async function insertUserIntoMySQLDatabase(email, password) {
   return uuid;
 }
 
-async function checkIfUserExists(email) {
+// Login functions
+/**
+ * @param {String} uuid
+ * @returns {Object} sqlQuery[0](User Data)
+ */
+async function checkIfUserExists(uuid) {
   const connection = await mysqlPool.getConnection();
   const sqlQuery = `SELECT
     id, uuid, email, password, activated_at
     FROM users
-    WHERE email = '${email}'`;
+    WHERE uuid = '${uuid}'`;
 
-  // const result = connecgtion.query(sqlQuery)[0]
   const [result] = await connection.query(sqlQuery);
-  if (result.length === 1) {
-    const userData = result[0];
-    if (userData.activated_at) { return null; }
+  if (result.length === 1 && result[0].activated_at) {
+    return result[0];
   }
-  return null;
+  console.log(sqlQuery[0]);
+  return sqlQuery[0];
 }
 
 module.exports = {
