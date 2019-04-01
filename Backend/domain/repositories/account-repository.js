@@ -3,6 +3,7 @@
 const bcrypt = require('bcrypt');
 const uuidV4 = require('uuid/v4');
 const mysqlPool = require('../../databases/mysql-pool');
+const UserModel = require('../../models/user-model');
 
 // Create account functions
 /**
@@ -33,6 +34,33 @@ async function insertUserIntoMySQLDatabase(email, password) {
   return uuid;
 }
 
+/**
+ * Insert user into mongodb initializing values at null
+ * @param {String} uuid 
+ * @returns {String} uuid
+ */
+async function createUserInMongoDB(uuid) {
+  const userProfileData = {
+    uuid,
+    avatarUrl: null,
+    fullName: null,
+    location: null,
+    description: null,
+    following: [],
+    followers: [],
+    cars: [],
+    posts: []
+  };
+
+  try {
+    await UserModel.create(userProfileData);
+    return uuid;
+  } catch (e) {
+    return new Error(e.message);
+  }
+}
+
 module.exports = {
   insertUserIntoMySQLDatabase,
+  createUserInMongoDB
 };

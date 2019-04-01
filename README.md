@@ -1,4 +1,4 @@
-# RaliCdeS
+#Rali Camino de Santiago
 
 Final project for Hack a BOS 2019 1st Edition
 

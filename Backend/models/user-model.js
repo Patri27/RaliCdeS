@@ -19,20 +19,24 @@ const userSchema = new Schema({
     since: Date,
   }],
   avatarUrl: String,
+  location: String,
   description: String,
   cars: [{
     brand: String,
     model: String,
     year: Number,
+    current: Boolean
   }],
+  posts: [{
+    id: ObjectId(),
+    content: String
+  }]
 });
 
 userSchema.index(
   {
     fullName: 'text',
-    'preferences.linkedIn': 'text',
-    'preferences.twitter': 'text',
-    'preferences.github': 'text',
+    location: 'text'
   },
 );
 

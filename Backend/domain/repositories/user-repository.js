@@ -18,6 +18,10 @@ async function checkIfUserExists(email) {
   return result.length === 1 ? email : new Error();
 }
 
+/**
+ * @param {String} email
+ * @returns {String} email 
+ */
 async function isVerified(email) {
   const connection = await mysqlPool.getConnection();
   const sqlQuery = `SELECT
