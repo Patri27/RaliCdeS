@@ -28,7 +28,6 @@ async function connect() {
       connection.release();
     }
   } catch (e) {
-    console.error('mysql pool connect', e);
     throw e;
   }
 }

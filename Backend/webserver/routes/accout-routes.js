@@ -1,7 +1,7 @@
 'use strict';
 
 const express = require('express');
-const createAccount = require('../../domain/use-cases/account/create-account-uc');
+const createAccount = require('../controllers/create-account-c');
 
 const accountRouter = express.Router();
 
