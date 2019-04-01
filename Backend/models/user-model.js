@@ -29,7 +29,9 @@ const userSchema = new Schema({
   }],
   posts: [{
     id: ObjectId(),
-    content: String
+    author: String,
+    content: String,
+    location: String
   }]
 });
 
