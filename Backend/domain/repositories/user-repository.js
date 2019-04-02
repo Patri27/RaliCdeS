@@ -1,6 +1,8 @@
 'use strict';
 
+const dot = require('dot-object');
 const mysqlPool = require('../../databases/mysql-pool');
+const UserModel = require('../../models/user-model');
 
 // Login functions
 /**
@@ -20,7 +22,7 @@ async function checkIfUserExists(email) {
 
 /**
  * @param {String} email
- * @returns {String} email 
+ * @returns {String} email
  */
 async function isVerified(email) {
   const connection = await mysqlPool.getConnection();
@@ -33,8 +35,21 @@ async function isVerified(email) {
   return result[0].activated_at ? email : new Error();
 }
 
+// Update user profile
+/**
+ * @param {String} uuid
+ * @param {Object} userData data to be updated
+ * @return {Object} null if everything is ok
+ */
+async function updateUserProfile(uuid, userData) {
+  const userDataProfileMongoose = dot.dot(userData);
+  await UserModel.updateOne({ uuid }, userDataProfileMongoose);
+
+  return null;
+}
 
 module.exports = {
   checkIfUserExists,
   isVerified,
+  updateUserProfile,
 };

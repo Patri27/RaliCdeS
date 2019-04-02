@@ -70,7 +70,7 @@ async function listen(port) {
   if (server === null) {
     server = await app.listen(port);
   } else {
-    console.error("Can't listen, server already initialized");
+    throw new Error("Can't listen, server already initialized");
   }
 }
 
@@ -82,7 +82,7 @@ async function close() {
     await server.close();
     server = null;
   } else {
-    console.error("Can't close a non started server");
+    throw new Error("Can't close a non started server");
   }
 }
 
