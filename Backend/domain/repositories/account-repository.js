@@ -36,7 +36,7 @@ async function insertUserIntoMySQLDatabase(email, password) {
 
 /**
  * Insert user into mongodb initializing values at null
- * @param {String} uuid 
+ * @param {String} uuid
  * @returns {String} uuid
  */
 async function createUserInMongoDB(uuid) {
@@ -49,7 +49,7 @@ async function createUserInMongoDB(uuid) {
     following: [],
     followers: [],
     cars: [],
-    posts: []
+    posts: [],
   };
 
   try {
@@ -62,5 +62,5 @@ async function createUserInMongoDB(uuid) {
 
 module.exports = {
   insertUserIntoMySQLDatabase,
-  createUserInMongoDB
+  createUserInMongoDB,
 };
