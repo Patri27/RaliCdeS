@@ -25,20 +25,19 @@ const userSchema = new Schema({
     brand: String,
     model: String,
     year: Number,
-    current: Boolean
+    current: Boolean,
   }],
   posts: [{
-    id: ObjectId(),
     author: String,
     content: String,
-    location: String
-  }]
+    location: String,
+  }],
 });
 
 userSchema.index(
   {
     fullName: 'text',
-    location: 'text'
+    location: 'text',
   },
 );
 
