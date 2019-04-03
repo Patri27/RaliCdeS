@@ -2,7 +2,7 @@
 
 const express = require('express');
 const createAccount = require('../controllers/account/create-account-c');
-const login = require('../../domain/use-cases/account/login-uc');
+const login = require('../controllers/account/login-c');
 
 const accountRouter = express.Router();
 
