@@ -6,6 +6,7 @@ const booleanSchema = Joi.bool().required();
 const textSchema = Joi.string().min(5).max(1024).required();
 const emailSchema = Joi.string().email({ minDomainAtoms: 2 }).required();
 const objectSchema = Joi.object(); // .keys({})
+const arraySchema = Joi.array(); // .items()
 const passwordSchema = Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).required();
 const stringSchema = Joi.string().min(3).max(128).required();
 const uuidSchema = Joi.string().guid({
@@ -22,6 +23,7 @@ module.exports = {
   textSchema,
   emailSchema,
   objectSchema,
+  arraySchema,
   passwordSchema,
   stringSchema,
   uuidSchema,

@@ -14,6 +14,6 @@ const postCollectionSchema = new Schema(
   }
 );
 
-const Car = mongoose.model('Car', postCollectionSchema);
+const PostCollection = mongoose.model('PostCollection', postCollectionSchema);
 
-module.exports = Car;
+module.exports = PostCollection;

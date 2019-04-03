@@ -9,7 +9,7 @@ const PostCollectionModel = require('../../models/post-collection-model');
 /**
  * @param {String} uuid
  * @param {Object} userData data to be updated
- * @return {Object} null if everything is ok
+ * @return {null} if everything is ok
  */
 async function updateUserProfile(uuid, userData) {
   const userDataProfileMongoose = dot.dot(userData);
@@ -30,6 +30,13 @@ async function createPost(data) {
   return _id;
 }
 
+/**
+ * Insert created post into user's post collection
+ * @param {Object} filter uuid
+ * @param {Object} operation addToSet
+ * @param {Object} options upsert: true
+ * @returns {null} if everything is okay
+ */
 async function insertIntoPostCollection(filter, operation, options) {
   await PostCollectionModel.findOneAndUpdate(filter, operation, options);
 
