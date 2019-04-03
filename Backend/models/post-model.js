@@ -18,7 +18,10 @@ const postSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  modified: Boolean,
+  modified: {
+    type: Boolean,
+    default: false,
+  },
   deletedAt: Date,
 });
 
