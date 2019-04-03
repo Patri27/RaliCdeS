@@ -11,6 +11,7 @@ const sponsorSchema = new Schema({
   inRoute: [String],
   description: String,
   pictures: [String],
+  coordinates: [String],
 });
 
 const Sponsor = mongoose.model('Sponsor', sponsorSchema);
