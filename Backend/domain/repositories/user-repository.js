@@ -2,6 +2,8 @@
 
 const dot = require('dot-object');
 const UserModel = require('../../models/user-model');
+const PostModel = require('../../models/post-model');
+const PostCollectionModel = require('../../models/post-collection-model');
 
 // Update user profile
 /**
@@ -16,6 +18,26 @@ async function updateUserProfile(uuid, userData) {
   return null;
 }
 
+/**
+ *  Create post
+ * @param {Object} data
+ * @returns post._id
+ */
+
+async function createPost(data) {
+  const { _id } = await PostModel.create(data);
+
+  return _id;
+}
+
+async function insertIntoPostCollection(filter, operation, options) {
+  await PostCollectionModel.findOneAndUpdate(filter, operation, options);
+
+  return null;
+}
+
 module.exports = {
   updateUserProfile,
+  createPost,
+  insertIntoPostCollection,
 };

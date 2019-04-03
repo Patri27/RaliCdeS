@@ -8,7 +8,7 @@ async function createPost(req, res, next) {
 
   try {
     await createPostUC(postContent, authorization);
-    return res.status(204).send();
+    return res.status(201).send();
   } catch (e) {
     return next(e);
   }
