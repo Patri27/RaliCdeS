@@ -4,7 +4,7 @@ const Joi = require('joi');
 const {
   stringSchema, textSchema, uriNaSchema, arraySchema,
 } = require('../../../models/validations-models');
-const { checkAuthorization } = require('../../use-cases/session/check-authorization');
+const { checkAuthorization } = require('../session/check-authorization');
 const { createNews } = require('../../repositories/admin-repository');
 
 async function validate(payload) {
@@ -24,7 +24,12 @@ async function createNewsUC(newsContent, authorization) {
    */
   const { uuid } = await checkAuthorization(authorization);
 
-  await validate(newsContent);
+  try {
+    await validate(newsContent);
+  } catch (error) {
+    throw new Error(error);
+  }
+
   const {
     title, content, category, archives: { ...url },
   } = newsContent;
@@ -44,7 +49,7 @@ async function createNewsUC(newsContent, authorization) {
     await createNews(data);
     return null;
   } catch (e) {
-    return new Error(e);
+    throw new Error(e);
   }
 }
 

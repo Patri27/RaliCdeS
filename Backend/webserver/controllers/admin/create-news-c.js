@@ -1,6 +1,6 @@
 'use strict';
 
-const createNewsUC = require('../../../domain/use-cases/admin/create-news');
+const createNewsUC = require('../../../domain/use-cases/admin/create-news-uc');
 
 async function createNews(req, res, next) {
   const newsContent = { ...req.body };

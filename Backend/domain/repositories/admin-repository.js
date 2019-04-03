@@ -13,6 +13,11 @@ async function createNews(data) {
   return null;
 }
 
+async function removeNews(newsId) {
+  await NewsModel.findOneAndDelete({ id: newsId });
+}
+
 module.exports = {
   createNews,
+  removeNews,
 };
