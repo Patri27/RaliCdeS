@@ -17,7 +17,12 @@ async function removeNews(newsId) {
   await NewsModel.findOneAndDelete({ id: newsId });
 }
 
+async function updateNews(filter, operation) {
+  await NewsModel.updateOne(filter, operation);
+}
+
 module.exports = {
   createNews,
   removeNews,
+  updateNews,
 };

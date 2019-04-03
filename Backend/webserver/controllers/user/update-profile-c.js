@@ -1,6 +1,6 @@
 'use strict';
 
-const updateUserProfileUC = require('../../domain/use-cases/user/update-user-profile-uc');
+const updateUserProfileUC = require('../../../domain/use-cases/user/update-user-profile-uc');
 
 async function updateUserProfile(req, res, next) {
   const userDataProfile = { ...req.body };
