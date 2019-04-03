@@ -39,7 +39,7 @@ async function createNewsUC(newsContent, authorization) {
     author: uuid,
     content,
     favourite: [],
-    modified: null,
+    lastModifiedAt: null,
     deletedAt: null,
     archives: [url],
     category,

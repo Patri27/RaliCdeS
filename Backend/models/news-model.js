@@ -13,7 +13,7 @@ const newsSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  modified: Date,
+  lastModifiedAt: Date,
   deletedAt: Date,
   archives: [String],
   category: String,
