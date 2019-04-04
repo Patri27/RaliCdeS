@@ -7,8 +7,8 @@ const updateNews = require('../../controllers/admin/update-news-c');
 
 const newsRouter = express.Router();
 
-newsRouter.post('news/add', createNews);
-newsRouter.delete('news/remove', removeNews);
-newsRouter.put('news/update', updateNews);
+newsRouter.post('/news/add', createNews);
+newsRouter.delete('/news/remove', removeNews);
+newsRouter.put('/news/update', updateNews);
 
 module.exports = newsRouter;

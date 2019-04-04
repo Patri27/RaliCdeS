@@ -2,9 +2,9 @@
 
 const Joi = require('joi');
 const {
-  stringSchema, textSchema, uriNaSchema, arraySchema,
+  stringSchema, textSchema,
 } = require('../../../models/validations-models');
-const { checkAuthorization } = require('../session/check-authorization');
+const checkAuthorization = require('../session/check-authorization');
 const { createNews } = require('../../repositories/admin-repository');
 
 async function validate(payload) {
@@ -12,7 +12,7 @@ async function validate(payload) {
     title: stringSchema,
     content: textSchema,
     category: stringSchema,
-    archives: arraySchema.items(uriNaSchema),
+    // archives: arraySchema.items(uriNaSchema),
   };
 
   return Joi.validate(payload, schema);
@@ -31,7 +31,7 @@ async function createNewsUC(newsContent, authorization) {
   }
 
   const {
-    title, content, category, archives: { ...url },
+    title, content, category,
   } = newsContent;
 
   const data = {
@@ -41,7 +41,6 @@ async function createNewsUC(newsContent, authorization) {
     favourite: [],
     lastModifiedAt: null,
     deletedAt: null,
-    archives: [url],
     category,
   };
 

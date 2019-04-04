@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose');
 
-const { Schema } = mongoose;
+const { Schema, Schema: { ObjectId } } = mongoose;
 
 const userSchema = new Schema({
   fullName: String,
@@ -10,14 +10,6 @@ const userSchema = new Schema({
     type: String,
     unique: true,
   },
-  following: [{
-    uuid: String,
-    since: Date,
-  }],
-  followers: [{
-    uuid: String,
-    since: Date,
-  }],
   avatarUrl: String,
   location: String,
   description: String,
@@ -28,9 +20,7 @@ const userSchema = new Schema({
     current: Boolean,
   }],
   posts: [{
-    author: String,
-    content: String,
-    location: String,
+    objectId: ObjectId,
   }],
 });
 

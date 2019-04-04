@@ -10,7 +10,7 @@ const postCollectionSchema = new Schema(
       type: String,
       unique: true,
     },
-    post: [ObjectId],
+    posts: [ObjectId],
   }
 );
 

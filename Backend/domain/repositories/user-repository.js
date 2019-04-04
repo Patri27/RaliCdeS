@@ -38,10 +38,12 @@ async function createPost(data) {
  * @returns {null} if everything is okay
  */
 async function insertIntoPostCollection(filter, operation, options) {
-  await PostCollectionModel.findOneAndUpdate(filter, operation, options);
-
+  const { uuid } = filter;
+  await PostCollectionModel.findOneAndUpdate(filter, { uuid, operation }, options);
+  await UserModel.findOneAndUpdate(filter, operation, options); // needs fix
   return null;
 }
+
 
 module.exports = {
   updateUserProfile,

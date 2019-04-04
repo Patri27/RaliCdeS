@@ -1,8 +1,8 @@
 'use strict';
 
 const Joi = require('joi');
+const checkAuthorization = require('../session/check-authorization');
 const { stringSchema, textSchema } = require('../../../models/validations-models');
-const { checkAuthorization } = require('../../use-cases/session/check-authorization');
 const { createPost, insertIntoPostCollection } = require('../../repositories/user-repository');
 
 async function validate(payload) {
@@ -48,8 +48,12 @@ async function createPostUC(postContent, authorization) {
   const options = {
     upsert: true,
   };
-
-  await insertIntoPostCollection(filter, operation, options);
+  try {
+    await insertIntoPostCollection(filter, operation, options);
+    return null;
+  } catch (e) {
+    throw new Error(e.message);
+  }
 }
 
 module.exports = createPostUC;

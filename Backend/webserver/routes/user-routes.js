@@ -7,6 +7,6 @@ const createPost = require('../controllers/user/create-post-c');
 const userRouter = express.Router();
 
 userRouter.put('/user', updateUserProfile);
-userRouter.post('user/post', createPost);
+userRouter.post('/user/post', createPost);
 
 module.exports = userRouter;
