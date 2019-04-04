@@ -19,38 +19,42 @@ async function validate(payload) {
 async function createAccountUC(email, password) {
   await validate({ email, password });
 
+
+  // creating secure password with bcrypt, generating uuid
+  const now = new Date(); // getting creation date
+  const UserToInsert = {
+    securePassword: await bcrypt.hash(password, 10),
+    uuid: uuidV4(),
+    createdAt: now.toISOString().substring(0, 19).replace('T', ' '),
+  };
+
+  const { securePassword, uuid, createdAt } = UserToInsert;
   try {
-    // creating secure password with bcrypt, generating uuid
-    const now = new Date(); // getting creation date
-    const UserToInsert = {
-      securePassword: await bcrypt.hash(password, 10),
-      uuid: uuidV4(),
-      createdAt: now.toISOString().substring(0, 19).replace('T', ' '),
-    };
-
-    const { securePassword, uuid, createdAt } = UserToInsert;
-
     await insertUserIntoMySQLDatabase(email, securePassword, uuid, createdAt);
-
-    // initializing values to null
-    const userProfileData = {
-      uuid,
-      avatarUrl: null,
-      fullName: null,
-      location: null,
-      description: null,
-      following: [],
-      followers: [],
-      cars: [],
-      posts: [],
-    };
-
-    await createUserInMongoDB(uuid, userProfileData);
-
-    return null;
   } catch (e) {
-    return new Error(e.message);
+    throw new Error(e.message);
   }
+
+  // initializing values to null
+  const userProfileData = {
+    uuid,
+    avatarUrl: null,
+    fullName: null,
+    location: null,
+    description: null,
+    following: [],
+    followers: [],
+    cars: [],
+    posts: [],
+  };
+
+  try {
+    await createUserInMongoDB(uuid, userProfileData);
+  } catch (e) {
+    throw new Error(e.message);
+  }
+
+  return null;
 }
 
 module.exports = createAccountUC;

@@ -16,29 +16,38 @@ async function validate(payload) {
   return Joi.validate(payload, schema);
 }
 
+function isActivated(userData) {
+  return (userData.activated || false);
+}
+
+async function isThePasswordValid(password, userData) {
+  const passwordChecked = await bcrypt.compare(password, userData.password);
+  return (passwordChecked || false);
+}
+
 async function loginUC(email, password) {
   await validate({ email, password });
 
   const userData = await checkIfUserExists(email);
 
-  if (userData.activated_at) {
-    const isThePasswordValid = await bcrypt.compare(password, userData.password);
-    if (isThePasswordValid === false) {
-      return new Error();
+  if (!(isActivated(userData) && isThePasswordValid(password, userData.password))) {
+    if (isThePasswordValid(password, userData) === true && isActivated(userData) === false) {
+      throw new Error("Your account isn't verified yet");
     }
-    const payloadJwt = {
-      uuid: userData.uuid,
-    };
-
-    const jwtTokenExpiration = parseInt(process.env.AUTH_ACCESS_TOKEN_TTL, 10);
-    jwt.sign(
-      payloadJwt,
-      process.env.AUTH_JWT_SECRET,
-      { expiresIn: jwtTokenExpiration }
-    );
-    return new Error();
+    throw new Error('The data you have provided is invalid, please try again');
   }
-  return null;
+
+  const payloadJwt = {
+    uuid: userData.uuid,
+  };
+
+  const jwtTokenExpiration = parseInt(process.env.AUTH_ACCESS_TOKEN_TTL, 10);
+  jwt.sign(
+    payloadJwt,
+    process.env.AUTH_JWT_SECRET,
+    { expiresIn: jwtTokenExpiration }
+  );
+  return { token: jwtTokenExpiration };
 }
 
 module.exports = loginUC;

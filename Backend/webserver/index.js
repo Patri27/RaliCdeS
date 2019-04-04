@@ -78,11 +78,15 @@ async function listen(port) {
  * Stop listening requests
  */
 async function close() {
-  if (server) {
-    await server.close();
-    server = null;
-  } else {
-    throw new Error("Can't close a non started server");
+  try {
+    if (server) {
+      await server.close();
+      server = null;
+    } else {
+      throw new Error("Can't close a non started server");
+    }
+  } catch (e) {
+    console.log(e.message);
   }
 }
 

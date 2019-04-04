@@ -43,7 +43,7 @@ async function createUserInMongoDB(uuid, userProfileData) {
 async function checkIfUserExists(email) {
   const connection = await mysqlPool.getConnection();
   const sqlQuery = `SELECT
-      id, uuid, email, password, activated_at
+      uuid, email, password, activated
       FROM users
       WHERE email = '${email}'`;
 

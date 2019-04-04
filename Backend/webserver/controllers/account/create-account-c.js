@@ -7,10 +7,10 @@ async function createAccountController(req, res, next) {
 
   try {
     await createAccountUC(email, password);
-    return res.status(204).send();
   } catch (e) {
     return next(e);
   }
+  return res.status(204).send();
 }
 
 module.exports = createAccountController;

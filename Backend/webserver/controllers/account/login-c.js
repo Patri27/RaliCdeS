@@ -6,8 +6,8 @@ async function loginController(req, res, next) {
   const { email, password } = { ...req.body };
 
   try {
-    await loginUC(email, password);
-    return res.status(204).send();
+    const message = await loginUC(email, password);
+    return res.status(200).send(message);
   } catch (e) {
     return next(e);
   }
