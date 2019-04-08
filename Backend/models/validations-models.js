@@ -12,6 +12,7 @@ const stringSchema = Joi.string().min(3).max(128).required();
 const uuidSchema = Joi.string().guid({
   version: ['uuidv4'],
 });
+const dateSchema = Joi.date.iso().required();
 
 // Null allowed
 const stringNaSchema = Joi.string().allow(null);
@@ -29,4 +30,5 @@ module.exports = {
   uuidSchema,
   stringNaSchema,
   uriNaSchema,
+  dateSchema,
 };

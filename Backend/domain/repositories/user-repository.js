@@ -44,9 +44,27 @@ async function insertIntoPostCollection(filter, operation, options) {
   return null;
 }
 
+/**
+ * @param {Object} filter
+ * @param {Object} operation
+ */
+async function updatePost(filter, operation) {
+  await PostModel.updateOne(filter, operation);
+  await PostCollectionModel.findOneAndUpdate(filter, operation);
+}
+
+/**
+ * @param {ObjectId} postId
+ * @returns query result
+ */
+async function deletePost(postId) {
+  await PostModel.findOneAndDelete({ id: postId });
+}
 
 module.exports = {
   updateUserProfile,
   createPost,
   insertIntoPostCollection,
+  deletePost,
+  updatePost,
 };

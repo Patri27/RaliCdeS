@@ -3,7 +3,7 @@
 const Joi = require('joi');
 const { uuidSchema } = require('../../../models/validations-models');
 const checkAuthorization = require('../session/check-authorization');
-const { removeNews } = require('../../repositories/admin-repository');
+const { deletePost } = require('../../repositories/user-repository');
 
 async function validate(payload) {
   const schema = {
@@ -13,7 +13,7 @@ async function validate(payload) {
   return Joi.validate(payload, schema);
 }
 
-async function removeNewsUC(postId, authorization) {
+async function deletePostUC(postId, authorization) {
   try {
     await validate({ postId });
   } catch (e) {
@@ -25,10 +25,10 @@ async function removeNewsUC(postId, authorization) {
 
 
   try {
-    await removeNews(postId);
+    await deletePost(postId);
   } catch (e) {
     throw (e);
   }
 }
 
-module.exports = removeNewsUC;
+module.exports = deletePostUC;

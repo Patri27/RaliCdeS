@@ -33,9 +33,7 @@ app.use((req, res, next) => {
 /**
  * Add all routes
  */
-app.use('/api', routes.aboutRouter);
-app.use('/api', routes.mediaRouter);
-app.use('/api', routes.newsRouter);
+app.use('/api', routes.adminRouter);
 app.use('/api', routes.accountRouter);
 app.use('/api', routes.sharedRouter);
 app.use('/api', routes.userRouter);

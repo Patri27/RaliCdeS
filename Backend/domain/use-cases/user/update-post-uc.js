@@ -5,7 +5,7 @@ const {
   stringSchema, textSchema, uriNaSchema, arraySchema,
 } = require('../../../models/validations-models');
 const checkAuthorization = require('../session/check-authorization');
-const { updateNews } = require('../../repositories/admin-repository');
+const { updatePost } = require('../../repositories/user-repository');
 
 async function validate(payload) {
   const schema = {
@@ -18,38 +18,36 @@ async function validate(payload) {
   return Joi.validate(payload, schema);
 }
 
-async function updateNewsUC(newsId, newsContent, authorization) {
+async function updatePostUC(postId, postContent, authorization) {
   /**
    * Check authorization header to get uuid
    */
   await checkAuthorization(authorization);
 
   try {
-    await validate(newsContent);
+    await validate(postContent);
   } catch (error) {
     throw new Error(error);
   }
 
   const {
-    title, content, category, archives: { ...url },
-  } = newsContent;
+    title, content,
+  } = postContent;
 
   const operation = {
     $set: {
       title,
       content,
-      lastModifiedAt: Date.now(),
-      archives: [url],
-      category,
+      modified: true,
     },
   };
 
   try {
-    await updateNews({ _id: newsId }, operation);
+    await updatePost({ _id: postId }, operation);
     return null;
   } catch (e) {
     throw new Error(e);
   }
 }
 
-module.exports = updateNewsUC;
+module.exports = updatePostUC;
