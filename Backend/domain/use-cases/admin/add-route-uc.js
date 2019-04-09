@@ -7,8 +7,9 @@ const { addEvent } = require('../../repositories/admin-repository');
 
 async function validate(payload) {
   const schema = {
+    name: stringSchema,
     start: stringSchema,
-    length: stringSchema,
+    aproximatedLength: stringSchema,
   };
 
   return Joi.validate(payload, schema);

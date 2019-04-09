@@ -5,13 +5,14 @@ const {
   stringSchema, textSchema, arraySchema, numberSchema,
 } = require('../../../models/validations-models');
 const checkAuthorization = require('../session/check-authorization');
+const { addSponsor, addToRoute } = require('../../repositories/admin-repository');
 
 async function validate(payload) {
   const schema = {
     name: stringSchema,
     about: textSchema,
     location: stringSchema,
-    inRoute: arraySchema.items(stringSchema),
+    inRoutes: arraySchema.items(stringSchema),
     description: textSchema,
     coordinates: arraySchema.ordered([
       numberSchema.min(0).max(90),
@@ -25,18 +26,15 @@ async function validate(payload) {
 async function addToRouteUC(sponsor, authorization) {
   await checkAuthorization(authorization);
 
-  try {
-    await validate(sponsor);
-  } catch (error) {
-    throw new Error(error.message);
-  }
+  await validate(sponsor);
 
   try {
-    // add sponsor
-    // add to route
+    addSponsor(sponsor);
+    addToRoute(sponsor);
   } catch (e) {
     throw new Error(e);
   }
+  return null;
 }
 
 module.exports = addToRouteUC;

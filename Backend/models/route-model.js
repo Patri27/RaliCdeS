@@ -5,22 +5,13 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const routeSchema = new Schema({
+  name: String,
   start: String,
-  length: String,
-  resting: [{
+  aproximatedLength: String,
+  places: [{
     name: String,
     url: String,
-    number: Number,
-  }],
-  eating: [{
-    name: String,
-    url: String,
-    number: Number,
-  }],
-  sightseeing: [{
-    name: String,
-    url: String,
-    number: Number,
+    category: String, // resting, eating, sightseeing
   }],
 });
 
