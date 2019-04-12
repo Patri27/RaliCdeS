@@ -1,0 +1,17 @@
+
+ul {
+  display: flex;
+  flex-direction: row;
+  li { 
+    list-style-type: none;
+    margin: 1rem;
+    a, a:visited {
+      text-decoration: none;
+      color: darkred;
+    };
+    a:active {
+      color: red
+    }
+  }
+}
+  
