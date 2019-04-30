@@ -1,6 +1,7 @@
 <rcs-form>
   <rcs-errors></rcs-errors>
-  <form [formGroup]="loginForm"
+  <form class="form-group"
+        [formGroup]="loginForm"
         (ngSubmit)="login()">
     <rcs-form-control [control]="loginForm.get('email')">
       <input type="text"

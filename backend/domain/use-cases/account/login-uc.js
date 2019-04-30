@@ -17,13 +17,11 @@ async function validate(payload) {
 }
 
 function isActivated(userData) {
-  return (userData.activated || false);
+  return userData.activated === 1;
 }
 
 async function isThePasswordValid(password, userData) {
-  const passwordChecked = await bcrypt.compare(password,
-    userData.password);
-  console.log(passwordChecked);
+  const passwordChecked = await bcrypt.compare(password, userData.password);
   return passwordChecked;
 }
 
@@ -32,12 +30,14 @@ async function loginUC(email, password) {
 
   const userData = await checkIfUserExists(email);
 
-  if (!(isActivated(userData) && isThePasswordValid(password, userData))) {
-    if (
-      isThePasswordValid(password, userData) === true
-      && isActivated(userData) === false) {
-      throw new Error("Your account isn't verified yet");
-    }
+  const isAccountActivated = isActivated(userData);
+  if (!isAccountActivated) {
+    throw new Error("Your account isn't verified yet");
+  }
+
+  const isPasswordValid = await isThePasswordValid(password, userData);
+
+  if (!isPasswordValid) {
     throw new Error('The data you have provided is invalid, please try again');
   }
 
@@ -46,12 +46,12 @@ async function loginUC(email, password) {
   };
 
   const jwtTokenExpiration = parseInt(process.env.AUTH_ACCESS_TOKEN_TTL, 10);
-  const JWT = jwt.sign(
+  const jwtToken = jwt.sign(
     payloadJwt,
     process.env.AUTH_JWT_SECRET,
     { expiresIn: jwtTokenExpiration }
   );
-  return { accessToken: JWT };
+  return { accessToken: jwtToken };
 }
 
 module.exports = loginUC;

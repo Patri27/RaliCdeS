@@ -7,17 +7,17 @@ const AboutModel = require('../../models/about-model');
 const AboutUsModel = require('../../models/about-us-model');
 
 async function getNews() {
-  const news = await NewsModel.find({ deletedAt: null });
+  const news = await NewsModel.find({ deletedAt: null }).sort({ $natural: -1 });
   return news;
 }
 
 async function getEvents() {
-  const events = await EventsModel.find({ deletedAt: null });
+  const events = await EventsModel.find({ deletedAt: null }).sort({ $natural: -1 });
   return events;
 }
 
 async function getGallery() {
-  const images = await ImagesModel.find({ deletedAt: null });
+  const images = await ImagesModel.find({ deletedAt: null }).sort({ $natural: -1 });
   return images;
 }
 

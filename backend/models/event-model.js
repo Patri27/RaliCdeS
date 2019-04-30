@@ -9,7 +9,6 @@ const eventSchema = new Schema({
   description: String,
   date: Date,
   location: String,
-  type: String,
 });
 
 eventSchema.index({

@@ -3,5 +3,11 @@ export interface Event {
   description: string;
   date: Date;
   location: string;
-  type: string;
+}
+
+export interface EventRequest {
+  name: string;
+  description: string;
+  date: Date;
+  location: string;
 }

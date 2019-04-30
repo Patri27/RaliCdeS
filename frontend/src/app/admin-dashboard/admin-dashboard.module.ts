@@ -12,7 +12,7 @@ import { AddEventsComponent } from './containers/add-events/add-events.component
 import { UploadPhotoComponent } from './containers/upload-photo/upload-photo.component';
 import { UpdateAboutComponent } from './containers/update-about/update-about.component';
 import { UpdateAboutUsComponent } from './containers/update-about-us/update-about-us.component';
-import { PublisherComponent } from './components/publisher/publisher.component';
+
 
 @NgModule({
   declarations: [
@@ -25,7 +25,6 @@ import { PublisherComponent } from './components/publisher/publisher.component';
     UploadPhotoComponent,
     UpdateAboutComponent,
     UpdateAboutUsComponent,
-    PublisherComponent
   ],
   imports: [
     CommonModule,

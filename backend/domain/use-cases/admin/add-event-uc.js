@@ -13,7 +13,6 @@ async function validate(payload) {
     description: textSchema,
     date: dateSchema,
     location: stringSchema,
-    type: stringSchema,
   };
 
   return Joi.validate(payload, schema);

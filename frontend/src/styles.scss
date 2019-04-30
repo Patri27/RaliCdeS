@@ -2,3 +2,9 @@
 // Option A: Include all of Bootstrap 
 
 @import "../node_modules/bootstrap/scss/bootstrap";
+
+@media(min-width: 1600px) {
+  .container {
+    max-width: 1500px;
+  }
+}

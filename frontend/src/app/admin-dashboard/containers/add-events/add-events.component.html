@@ -1,3 +1,21 @@
-<p>
-  add-events works!
-</p>
+<main>
+  <form class="form-group"
+        (ngsubmit)="addEvent()">
+    <input type="text"
+           placeholder="Nombre"
+           [innerHtml]="name" />
+    <textarea rows="20"
+              placeholder="Descripción"
+              [innerHtml]="description">
+  </textarea>
+    <input type="datetime-local"
+           [innerHtml]="date" />
+    <input type="text"
+           placeholder="Lugar"
+           [innerHtml]="location">
+    <fieldset></fieldset>
+    <button type="submit">
+      Publicar
+    </button>
+  </form>
+</main>

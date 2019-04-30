@@ -7,7 +7,7 @@ export class GetEvents {
 
 export class GetEventsSuccess {
   static readonly type = '[Event] GetEventsSuccess';
-  constructor(public event: Event[]) { }
+  constructor(public events: Event[]) { }
 }
 
 export class GetEventsFailed {

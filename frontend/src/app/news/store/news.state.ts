@@ -40,15 +40,23 @@ export class NewsState {
     return this.newsService.addNews(newsRequest.title, newsRequest.content).pipe(
       tap(news => dispatch(new AddNewsSuccess({
         ...news,
-        author: currentUser
+        author: currentUser.fullName
       })
       )
       ),
       catchError(error => dispatch(new AddNewsFailed(error.error))));
   }
 
+  @Action(AddNewsSuccess)
+  addNewsSuccess(
+    { setState, getState }: StateContext<News[]>,
+    { news }: AddNewsSuccess
+  ) {
+    setState([news, ...getState()]);
+  }
 
-  @Action([GetNewsFailed])
+
+  @Action([GetNewsFailed, AddNewsFailed])
   error({ dispatch }: StateContext<News[]>, { errors }: any) {
     dispatch(new SetErrors(errors));
   }
