@@ -22,9 +22,9 @@ function isActivated(userData) {
 
 async function isThePasswordValid(password, userData) {
   const passwordChecked = await bcrypt.compare(password,
-    userData.password,
-    (e) => { throw new Error(e.message); });
-  return (passwordChecked || false);
+    userData.password);
+  console.log(passwordChecked);
+  return passwordChecked;
 }
 
 async function loginUC(email, password) {
@@ -32,9 +32,9 @@ async function loginUC(email, password) {
 
   const userData = await checkIfUserExists(email);
 
-  if (!(isActivated(userData) && isThePasswordValid(password, userData.password))) {
+  if (!(isActivated(userData) && isThePasswordValid(password, userData))) {
     if (
-      isThePasswordValid(password, userData.password) === true
+      isThePasswordValid(password, userData) === true
       && isActivated(userData) === false) {
       throw new Error("Your account isn't verified yet");
     }
@@ -51,7 +51,7 @@ async function loginUC(email, password) {
     process.env.AUTH_JWT_SECRET,
     { expiresIn: jwtTokenExpiration }
   );
-  return { token: JWT };
+  return { accessToken: JWT };
 }
 
 module.exports = loginUC;

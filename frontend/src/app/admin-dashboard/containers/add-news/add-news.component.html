@@ -1,0 +1,15 @@
+<main>
+  <form class="form-group"
+        (ngsubmit)="addNews()">
+    <input type="text"
+           placeholder="Título"
+           [innerHtml]="title" />
+    <textarea rows="20"
+              placeholder="Contenido"
+              [innerHtml]="content">
+</textarea>
+    <button type="submit">
+      Publicar
+    </button>
+  </form>
+</main>

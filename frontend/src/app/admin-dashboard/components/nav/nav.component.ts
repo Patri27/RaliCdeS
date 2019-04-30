@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngxs/store';
+import { Logout } from 'src/app/auth/store/auth.actions';
 
 @Component({
   selector: 'rcs-nav',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavComponent implements OnInit {
 
-  constructor() { }
+  constructor(private store: Store) { }
 
   ngOnInit() {
+  }
+
+  logoutUser() {
+    this.store.dispatch(new Logout());
   }
 
 }

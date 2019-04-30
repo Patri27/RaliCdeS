@@ -37,4 +37,8 @@ export class AuthService {
       password
     });
   }
+
+  logout() {
+    localStorage.removeItem('auth');
+  }
 }
