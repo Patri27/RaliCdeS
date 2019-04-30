@@ -9,10 +9,24 @@ const SponsorModel = require('../../models/sponsor-model');
 const ImageModel = require('../../models/image-model');
 
 /**
- *  Create News
- * @param {Object} data
+ * @param {Object} newsContent
+ * @param {String} uuid
+ * @returns query result
  */
-async function createNews(data) {
+async function createNews(newsContent, uuid) {
+  const {
+    title, content, category,
+  } = newsContent;
+
+  const data = {
+    title,
+    author: uuid,
+    content,
+    lastModifiedAt: null,
+    deletedAt: null,
+    category,
+  };
+
   await NewsModel.create(data);
 }
 
@@ -21,23 +35,58 @@ async function createNews(data) {
  * @returns query result
  */
 async function removeNews(newsId) {
-  await NewsModel.findOneAndDelete({ id: newsId });
-}
+  const filter = {
+    _id: newsId,
+  };
 
-/**
- * @param {Object} filter
- * @param {Object} operation
- */
-async function updateNews(filter, operation) {
+  const now = Date.now();
+  const operation = {
+    deletedAt: now,
+  };
+
   await NewsModel.updateOne(filter, operation);
 }
 
-async function updateAbout(about) {
-  await AboutModel.create(about, { upsert: true });
+/**
+ * @param {Object} newsContent
+ * @param {ObjectId} newsId
+ */
+async function updateNews(newsContent, newsId) {
+  const {
+    title, content, category,
+  } = newsContent;
+
+  const filter = {
+    _id: newsId,
+  };
+
+  const operation = {
+    $set: {
+      title,
+      content,
+      lastModifiedAt: Date.now(),
+      category,
+    },
+  };
+
+  await NewsModel.updateOne(filter, operation);
 }
 
-async function updateAboutUs(about) {
-  await AboutUsModel.update(about);
+/**
+ * @param {Object} aboutContent
+ * @param {String} uuid
+ */
+async function updateAbout(aboutContent, uuid) {
+  const { title, content } = aboutContent;
+  const query = { title, author: uuid, content };
+
+  await AboutModel.update(query);
+}
+
+async function updateAboutUs(aboutUsContent, uuid) {
+  const { title, content } = aboutUsContent;
+  const query = { title, author: uuid, content };
+  await AboutUsModel.update(query);
 }
 
 async function addEvent(eventData) {
@@ -73,6 +122,16 @@ async function addPhotos(secureUrl, uuid) {
   await ImageModel.create(picture);
 }
 
+async function updatePhoto(imageContent, imageUrl) {
+  const filter = {
+    secureUrl: imageUrl,
+  };
+
+  const operation = imageContent;
+
+  await ImageModel.findOneAndUpdate(filter, operation);
+}
+
 module.exports = {
   createNews,
   removeNews,
@@ -84,4 +143,5 @@ module.exports = {
   addSponsor,
   addToRoute,
   addPhotos,
+  updatePhoto,
 };

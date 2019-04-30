@@ -4,11 +4,12 @@ const Joi = require('joi');
 const uuidV4 = require('uuid/v4');
 const bcrypt = require('bcrypt');
 
-const { emailSchema, passwordSchema } = require('../../../models/validations-models');
+const { emailSchema, passwordSchema, stringSchema } = require('../../../models/validations-models');
 const { insertUserIntoMySQLDatabase, createUserInMongoDB } = require('../../repositories/account-repository');
 
 async function validate(payload) {
   const schema = {
+    fullName: stringSchema,
     email: emailSchema,
     password: passwordSchema,
   };
@@ -16,8 +17,8 @@ async function validate(payload) {
   return Joi.validate(payload, schema);
 }
 
-async function createAccountUC(email, password) {
-  await validate({ email, password });
+async function createAccountUC(fullName, email, password) {
+  await validate({ fullName, email, password });
 
 
   // creating secure password with bcrypt, generating uuid
@@ -39,7 +40,7 @@ async function createAccountUC(email, password) {
   const userProfileData = {
     uuid,
     avatarUrl: null,
-    fullName: null,
+    fullName,
     location: null,
     description: null,
     following: [],

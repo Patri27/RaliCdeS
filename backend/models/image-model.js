@@ -13,6 +13,7 @@ const imageSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  deletedAt: Date,
 });
 
 const Image = mongoose.model('Image', imageSchema);

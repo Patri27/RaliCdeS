@@ -8,7 +8,6 @@ const newsSchema = new Schema({
   title: String,
   author: String,
   content: String,
-  favourite: [String],
   createdAt: {
     type: Date,
     default: Date.now,

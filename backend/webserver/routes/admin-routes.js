@@ -10,8 +10,9 @@ const removeNewsC = require('../controllers/admin/remove-news-c');
 const updateNewsC = require('../controllers/admin/update-news-c');
 const addEventC = require('../controllers/admin/add-event-c');
 const addRouteC = require('../controllers/admin/add-route-c');
-const uploadPhotoC = require('../controllers/admin/upload-photos-c');
+const uploadPhotoC = require('../controllers/admin/upload-photo-c');
 const addSponsorC = require('../controllers/admin/add-to-route-c');
+const updatePhotoC = require('../controllers/admin/update-photo-c');
 
 const upload = multer();
 const adminRouter = express.Router();
@@ -23,7 +24,8 @@ adminRouter.delete('/news/remove', removeNewsC);
 adminRouter.put('/news/update', updateNewsC);
 adminRouter.post('/events/add', addEventC);
 adminRouter.post('/routes/add', addRouteC);
-adminRouter.post('/media/upload', upload.array('photos', 12), uploadPhotoC);
+adminRouter.post('/media/upload', upload.single('file'), uploadPhotoC);
 adminRouter.post('/sponsor/add', addSponsorC);
+adminRouter.put('/media/update', updatePhotoC);
 
 module.exports = adminRouter;

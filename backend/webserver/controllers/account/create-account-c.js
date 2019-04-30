@@ -3,10 +3,10 @@
 const createAccountUC = require('../../../domain/use-cases/account/create-account-uc');
 
 async function createAccountController(req, res, next) {
-  const { email, password } = { ...req.body };
+  const { fullName, email, password } = { ...req.body };
 
   try {
-    await createAccountUC(email, password);
+    await createAccountUC(fullName, email, password);
   } catch (e) {
     return next(e);
   }

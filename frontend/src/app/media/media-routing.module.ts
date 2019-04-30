@@ -9,7 +9,7 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
-        path: 'fotos',
+        path: 'galeria',
         component: PhotosComponent
       }
     ]

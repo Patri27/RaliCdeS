@@ -30,22 +30,8 @@ async function createNewsUC(newsContent, authorization) {
     throw new Error(error);
   }
 
-  const {
-    title, content, category,
-  } = newsContent;
-
-  const data = {
-    title,
-    author: uuid,
-    content,
-    favourite: [],
-    lastModifiedAt: null,
-    deletedAt: null,
-    category,
-  };
-
   try {
-    await createNews(data);
+    await createNews(newsContent, uuid);
     return null;
   } catch (e) {
     throw new Error(e);

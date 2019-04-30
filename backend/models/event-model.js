@@ -18,6 +18,6 @@ eventSchema.index({
   location: 'text',
 });
 
-const Post = mongoose.model('Post', eventSchema);
+const Event = mongoose.model('Event', eventSchema);
 
-module.exports = Post;
+module.exports = Event;

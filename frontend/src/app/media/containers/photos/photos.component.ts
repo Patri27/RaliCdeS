@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Store, Select } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { MediaState } from '../../store/media.state';
+import { Photo } from '../../media.models';
+import { GetGallery } from '../../store/media.actions';
 
 @Component({
   selector: 'rcs-photos',
@@ -7,9 +12,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PhotosComponent implements OnInit {
 
-  constructor() { }
+  @Select(MediaState) photos$: Observable<Photo[]>;
+
+  constructor(private store: Store) { }
 
   ngOnInit() {
+    this.store.dispatch(new GetGallery());
   }
 
 }

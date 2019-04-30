@@ -30,22 +30,8 @@ async function updateNewsUC(newsId, newsContent, authorization) {
     throw new Error(error);
   }
 
-  const {
-    title, content, category, archives: { ...url },
-  } = newsContent;
-
-  const operation = {
-    $set: {
-      title,
-      content,
-      lastModifiedAt: Date.now(),
-      archives: [url],
-      category,
-    },
-  };
-
   try {
-    await updateNews({ _id: newsId }, operation);
+    await updateNews(newsContent, newsId);
     return null;
   } catch (e) {
     throw new Error(e);

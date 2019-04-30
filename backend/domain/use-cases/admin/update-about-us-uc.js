@@ -23,11 +23,8 @@ async function updateAboutUsUC(aboutUsContent, authorization) {
 
   await validate(aboutUsContent);
 
-  const { title, content } = aboutUsContent;
-  const query = { title, author: uuid, content };
-
   try {
-    await updateAboutUs(query);
+    await updateAboutUs(aboutUsContent, uuid);
   } catch (e) {
     throw new Error(e.message);
   }

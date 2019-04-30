@@ -3,7 +3,7 @@
 const updateNewsUC = require('../../../domain/use-cases/admin/update-news-uc');
 
 async function updateNews(req, res, next) {
-  const newsId = req.query;
+  const { q: newsId } = req.query;
   const newsContent = { ...req.body };
   const { authorization } = req.headers;
 

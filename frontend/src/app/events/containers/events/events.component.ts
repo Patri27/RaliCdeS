@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Store, Select } from '@ngxs/store';
+import { EventState } from '../../store/event.state';
+import { Observable } from 'rxjs';
+import { GetEvents } from '../../store/event.actions';
 
 @Component({
   selector: 'rcs-events',
@@ -7,9 +11,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EventsComponent implements OnInit {
 
-  constructor() { }
+  @Select(EventState) events$: Observable<Event[]>;
+
+  constructor(private store: Store) { }
 
   ngOnInit() {
+    this.store.dispatch(new GetEvents());
   }
 
 }

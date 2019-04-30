@@ -1,5 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
+import { NgxsModule } from '@ngxs/store';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -8,7 +12,11 @@ import { SharedModule } from './shared/shared.module';
 import { EventsModule } from './events/events.module';
 import { NewsModule } from './news/news.module';
 import { MediaModule } from './media/media.module';
-import { RoutesModule } from './routes/routes.module';
+import { AuthModule } from './auth/auth.module';
+import { ErrorModule } from './error/error.module';
+import { environment } from 'src/environments/environment';
+import { AdminDashboardModule } from './admin-dashboard/admin-dashboard.module';
+
 
 @NgModule({
   declarations: [
@@ -16,13 +24,23 @@ import { RoutesModule } from './routes/routes.module';
   ],
   imports: [
     BrowserModule,
+    NgxsReduxDevtoolsPluginModule.forRoot({
+      disabled: environment.production
+    }),
+    NgxsLoggerPluginModule.forRoot({ logger: console, collapsed: false }),
+    NgxsRouterPluginModule.forRoot(),
+    NgxsModule.forRoot([], {
+      developmentMode: !environment.production
+    }),
     AppRoutingModule,
     LandingPageModule,
     SharedModule,
     EventsModule,
     NewsModule,
     MediaModule,
-    RoutesModule
+    AuthModule,
+    ErrorModule,
+    AdminDashboardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

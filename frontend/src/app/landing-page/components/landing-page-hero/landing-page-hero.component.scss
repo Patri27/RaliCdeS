@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css?family=Alegreya');
+
+main {
+  font-family: 'Alegreya', serif;
+  font-style: italic;
+  font-size: 4rem;
+  display: flex;
+  animation-name: fadein;
+  animation-duration: 3s;
+}
+
+span {
+  font-size: 5rem;
+  color: yellow;
+}
+
+@keyframes fadein {
+  1% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1  ;
+  }
+}

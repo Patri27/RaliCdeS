@@ -1,21 +1,21 @@
 'use strict';
 
 const Joi = require('joi');
-const { uuidSchema } = require('../../../models/validations-models');
+const { objectIdSchema } = require('../../../models/validations-models');
 const checkAuthorization = require('../session/check-authorization');
 const { removeNews } = require('../../repositories/admin-repository');
 
 async function validate(payload) {
   const schema = {
-    newsId: uuidSchema,
+    newsId: objectIdSchema,
   };
 
   return Joi.validate(payload, schema);
 }
 
-async function removeNewsUC(postId, authorization) {
+async function removeNewsUC(newsId, authorization) {
   try {
-    await validate({ postId });
+    await validate({ newsId });
   } catch (e) {
     throw new Error();
   }
@@ -25,7 +25,7 @@ async function removeNewsUC(postId, authorization) {
 
 
   try {
-    await removeNews(postId);
+    await removeNews(newsId);
   } catch (e) {
     throw (e);
   }
