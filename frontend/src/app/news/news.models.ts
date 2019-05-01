@@ -12,6 +12,7 @@ export interface News {
 export interface NewsRequest {
   title: string;
   content: string;
+  category: string;
 }
 
 export interface Photo {

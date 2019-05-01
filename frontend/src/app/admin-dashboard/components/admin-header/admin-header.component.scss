@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css?family=Alegreya');
+
+header {
+  font-family: 'Alegreya', serif;
+  font-style: italic;
+  font-size: 2rem;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  background: black;
+
+}
+
+a {
+  text-shadow: -0.5px 0 yellow, 0 0.5px yellow, 0.5px 0 yellow, 0 -0.5px yellow;
+  text-decoration: none;
+}
+span {
+  font-size: 2rem;
+  color: yellow;
+}

@@ -9,6 +9,10 @@ main {
   animation-duration: 3s;
 }
 
+p {
+  border: -0.5px 0 yellow, 0 0.5px yellow, 0.5px 0 yellow, 0 -0.5px yellow;
+}
+
 span {
   font-size: 5rem;
   color: yellow;

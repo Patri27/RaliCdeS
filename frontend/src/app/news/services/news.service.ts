@@ -14,10 +14,11 @@ export class NewsService {
     return this.http.get<News[]>(`${environment.apiBaseUrl}/news`);
   }
 
-  addNews(title: string, content: string): Observable<News> {
+  addNews(title: string, content: string, category: string): Observable<News> {
     return this.http.post<News>(`${environment.apiBaseUrl}/news/add`, {
       title,
-      content
+      content,
+      category
     });
   }
 

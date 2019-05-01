@@ -1,18 +1,18 @@
 <main>
-  <form class="form-group"
+  <form [formGroup]="eventForm"
         (ngsubmit)="addEvent()">
     <input type="text"
            placeholder="Nombre"
-           [innerHtml]="name" />
+           formControlName="name" />
     <textarea rows="20"
               placeholder="Descripción"
-              [innerHtml]="description">
+              formControlName="description">
   </textarea>
     <input type="datetime-local"
-           [innerHtml]="date" />
+           formControlName="date" />
     <input type="text"
            placeholder="Lugar"
-           [innerHtml]="location">
+           formControlName="location">
     <fieldset></fieldset>
     <button type="submit">
       Publicar

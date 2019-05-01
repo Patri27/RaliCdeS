@@ -15,7 +15,7 @@ export class LoginComponent {
       email: ['', [Validators.required, EmailValidator]],
       password: ['', [Validators.required]]
     },
-    { updateOn: 'blur' }
+    { updateOn: 'submit' }
   );
 
   constructor(private fb: FormBuilder, private store: Store) { }

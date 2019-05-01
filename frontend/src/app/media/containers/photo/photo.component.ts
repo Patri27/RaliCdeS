@@ -8,7 +8,7 @@ import { Photo } from '../../media.models';
 })
 export class PhotoComponent implements OnInit {
 
-  @Input() photos: Photo;
+  @Input() photos: Photo  ;
 
   constructor() { }
 

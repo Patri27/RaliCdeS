@@ -1,15 +1,24 @@
-<main>
-  <form class="form-group"
-        (ngsubmit)="addNews()">
-    <input type="text"
-           placeholder="Título"
-           [innerHtml]="title" />
-    <textarea rows="20"
-              placeholder="Contenido"
-              [innerHtml]="content">
-</textarea>
+<div class="container">
+  <form [formGroup]="newsForm"
+        (ngSubmit)="addNews()">
+    <rcs-form-control [control]="newsForm.get('title')">
+      <input type="text"
+             placeholder="Título"
+             formControlName="title" />
+    </rcs-form-control>
+    <rcs-form-control [control]="newsForm.get('content')">
+      <textarea rows="20"
+                placeholder="Contenido"
+                formControlName="content">
+      </textarea>
+    </rcs-form-control>
+    <rcs-form-control [control]="newsForm.get('category')">
+      <input type="text"
+             placeholder="Categoría"
+             formControlName="category" />
+    </rcs-form-control>
     <button type="submit">
       Publicar
     </button>
   </form>
-</main>
+</div>

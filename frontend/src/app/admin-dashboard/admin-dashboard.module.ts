@@ -12,6 +12,8 @@ import { AddEventsComponent } from './containers/add-events/add-events.component
 import { UploadPhotoComponent } from './containers/upload-photo/upload-photo.component';
 import { UpdateAboutComponent } from './containers/update-about/update-about.component';
 import { UpdateAboutUsComponent } from './containers/update-about-us/update-about-us.component';
+import { SharedModule } from '../shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -29,7 +31,9 @@ import { UpdateAboutUsComponent } from './containers/update-about-us/update-abou
   imports: [
     CommonModule,
     AdminDashboardRoutingModule,
-    AuthModule
+    AuthModule,
+    SharedModule,
+    ReactiveFormsModule
   ]
 })
 export class AdminDashboardModule { }

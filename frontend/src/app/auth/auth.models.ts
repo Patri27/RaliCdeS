@@ -5,7 +5,6 @@ export interface Auth {
   refreshToken: string;
   accessToken: string;
   fullName: string;
-  avatarUrl: string;
 }
 
 export interface LoginRequest {

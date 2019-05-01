@@ -1,3 +1,14 @@
-<p>
-  admin-wall works!
-</p>
+<main>
+  <ul>
+    <li [class.selected]="isGetNewsVisible">
+      <a rcsPreventDefault
+         href=""
+         (click)="toggleForm(true)">Noticias</a>
+    </li>
+    <li [class.selected]="!isGetNewsVisible">
+      <a rcsPreventDefault
+         href=""
+         (click)="toggleForm(false)">Fotos</a>
+    </li>
+  </ul>
+</main>

@@ -1,7 +1,7 @@
 import { Auth } from '../auth.models';
 import { State, Store, Action, StateContext } from '@ngxs/store';
 import { AuthService } from '../services/auth.service';
-import { Login, LoginSuccess, LoginFailed, Register, RegisterSuccess, RegisterFailed } from './auth.actions';
+import { Login, LoginSuccess, LoginFailed, Register, RegisterSuccess, RegisterFailed, Logout } from './auth.actions';
 import { Navigate } from '@ngxs/router-plugin';
 import { tap, catchError } from 'rxjs/operators';
 import { SetErrors } from 'src/app/error/store/error.actions';
@@ -40,6 +40,13 @@ export class AuthState {
       tap(() => dispatch(new RegisterSuccess())),
       catchError(error => dispatch(new RegisterFailed(error.error)))
     );
+  }
+
+  @Action(Logout)
+  logout({ setState, dispatch }: StateContext<Auth>) {
+    this.authService.logout();
+    setState(null);
+    dispatch(new Navigate(['/landing-page']));
   }
 
   @Action([LoginFailed, RegisterFailed])

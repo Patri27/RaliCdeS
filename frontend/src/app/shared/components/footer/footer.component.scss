@@ -1,5 +1,9 @@
 footer {
   font-size: 0.8rem;
   padding: 1.5rem;
-  background-color: aliceblue;
+  background-color: rgb(3, 3, 3);
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }

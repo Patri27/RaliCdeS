@@ -37,10 +37,10 @@ export class NewsState {
   addNews({ dispatch }: StateContext<News[]>, { newsRequest }: AddNews) {
     const currentUser = this.store.selectSnapshot(state => state.auth);
 
-    return this.newsService.addNews(newsRequest.title, newsRequest.content).pipe(
+    return this.newsService.addNews(newsRequest.title, newsRequest.content, newsRequest.category).pipe(
       tap(news => dispatch(new AddNewsSuccess({
         ...news,
-        author: currentUser.fullName
+        author: currentUser
       })
       )
       ),

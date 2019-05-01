@@ -1,0 +1,41 @@
+article {
+  background: rgb(41, 39, 39);
+  color: white;
+  padding: 2rem 5rem;
+  margin: 2rem;
+}
+
+article:hover {
+  border: black;
+  border: lightgrey solid 0.5px;
+  border-radius: 1rem;
+}
+
+single-news-header {
+  display: flex;
+  flex-direction: row;  
+}
+
+@media(min-width: 1050) {
+
+
+}
+
+@media all and (max-width: 980px) {
+  article {
+    padding: 1.5rem 2rem;
+    margin: 1.5rem;
+  }
+}
+@media all and (max-width: 736px) {
+  article {
+    padding: 1rem 2rem;
+    margin: 1rem;
+  }
+}
+@media all and (max-width: 480px) {
+  article {
+    padding: 1rem 2rem;
+    margin: 1rem;
+  }
+}

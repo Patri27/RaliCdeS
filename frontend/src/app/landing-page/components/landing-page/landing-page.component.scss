@@ -1,9 +1,23 @@
 .container {
-  background-image: url('../../../../assets/IMG_323.jpg');
+  background-image: url('../../../../assets/IMG_323\(870\).jpg');
   background-size: 100% auto;
   background-repeat: no-repeat;
   min-height: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  overflow: auto;
+}
+
+@media all and (max-width: 980px) {
+  .container {
+    position: relative;
+    top: -100;
+  }
+}
+@media all and (max-width: 736px) {
+  
+}
+@media all and (max-width: 480px) {
+  
 }
