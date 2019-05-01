@@ -14,7 +14,7 @@ export class MediaState {
   constructor(private newsService: MediaService, private store: Store) { }
 
   @Action(GetGallery)
-  getNews({ dispatch }: StateContext<Photo[]>) {
+  getGallery({ dispatch }: StateContext<Photo[]>) {
     return this.newsService.getGallery().pipe(
       tap(photos => dispatch(new GetGallerySuccess(photos))),
       catchError(error => dispatch(new GetGalleryFailed(error.error)))
@@ -22,7 +22,7 @@ export class MediaState {
   }
 
   @Action(GetGallerySuccess)
-  getNewsSuccess(
+  getGallerySuccess(
     { setState }: StateContext<Photo[]>,
     { photos }: GetGallerySuccess
   ) {

@@ -1,7 +1,18 @@
 import { State, Store, Action, StateContext } from '@ngxs/store';
 import { News } from '../news.models';
 import { NewsService } from '../services/news.service';
-import { GetNews, GetNewsSuccess, GetNewsFailed, AddNews, AddNewsSuccess, AddNewsFailed } from './news.actions';
+import {
+  GetNews,
+  GetNewsSuccess,
+  GetNewsFailed,
+  AddNews,
+  AddNewsSuccess,
+  AddNewsFailed,
+  UpdateNews,
+  UpdateNewsSuccess,
+  UpdateNewsFailed,
+  DeleteNews
+} from './news.actions';
 import { tap, catchError } from 'rxjs/operators';
 import { SetErrors } from 'src/app/error/store/error.actions';
 
@@ -55,8 +66,26 @@ export class NewsState {
     setState([news, ...getState()]);
   }
 
+  @Action(UpdateNews)
+  updateNews({ dispatch }: StateContext<News>, { _id, newsRequest }: UpdateNews) {
+    return this.newsService.updateNews(_id, newsRequest).pipe(
+      tap(news => dispatch(new UpdateNewsSuccess({
+        ...news
+      })
+      )),
+      catchError(error => dispatch(new UpdateNewsFailed(error.error)))
+    );
+  }
 
-  @Action([GetNewsFailed, AddNewsFailed])
+  @Action(UpdateNewsSuccess)
+  updateNewsSuccess(
+    { setState, getState }: StateContext<News[]>,
+    { news }: UpdateNewsSuccess
+  ) {
+    setState([news, ...getState()]);
+  }
+
+  @Action([GetNewsFailed, AddNewsFailed, UpdateNewsFailed])
   error({ dispatch }: StateContext<News[]>, { errors }: any) {
     dispatch(new SetErrors(errors));
   }

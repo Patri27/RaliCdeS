@@ -16,14 +16,9 @@ export class MediaService {
     return this.http.get<Photo[]>(`${environment.apiBaseUrl}/gallery`);
   }
 
-  uploadPhoto(image: File) {
-    const formData = new FormData();
-
-    formData.append('avatar', image);
-
-    return this.http.post(`${environment.apiBaseUrl}/media/upload`, formData, {
-      observe: 'response'
+  uploadPhoto(image) {
+    return this.http.post(`${environment.apiBaseUrl}/media/upload`, {
+      file: image
     });
   }
 }
-

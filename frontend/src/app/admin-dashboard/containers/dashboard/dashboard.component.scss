@@ -1,3 +1,11 @@
 .container {
   display: flex;
 }
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  background: rgb(41, 39, 39);
+}

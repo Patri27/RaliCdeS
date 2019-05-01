@@ -1,0 +1,26 @@
+<div id="container">
+  <rcs-form [formGroup]="newsForm"
+            (ngSubmit)="updateNews()">
+    <rcs-form-control [control]="newsForm.get('title')">
+      <input type="text"
+             placeholder="Título"
+             formControlName="title" />
+    </rcs-form-control>
+    <rcs-form-control [control]="newsForm.get('content')">
+      <textarea rows="20"
+                placeholder="Contenido"
+                formControlName="content">
+      </textarea>
+    </rcs-form-control>
+    <rcs-form-control [control]="newsForm.get('category')">
+      <input type="text"
+             placeholder="Categoría"
+             formControlName="category" />
+    </rcs-form-control>
+    <div class="button-wrapper">
+      <button type="submit">
+        Publicar
+      </button>
+    </div>
+  </rcs-form>
+</div>

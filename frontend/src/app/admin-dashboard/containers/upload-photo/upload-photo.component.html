@@ -1,3 +1,6 @@
-<p>
-  upload-photo works!
-</p>
+<input style="display: none"
+       type="file"
+       (change)="onFileChanged($event)"
+       #fileInput>
+<button (click)="fileInput.click()">Selecciona un archivo</button>
+<button (click)="onUpload()">Subir</button>

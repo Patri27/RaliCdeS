@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngxs/store';
+import { Component, OnInit, Input } from '@angular/core';
+import { Store, Select } from '@ngxs/store';
+import { NewsState } from 'src/app/news/store/news.state';
+import { Observable } from 'rxjs';
+import { News } from 'src/app/news/news.models';
 import { GetNews } from 'src/app/news/store/news.actions';
-import { GetGallery } from 'src/app/media/store/media.actions';
-import { GetEvents } from 'src/app/events/store/event.actions';
 
 @Component({
   selector: 'rcs-admin-wall',
@@ -10,27 +11,13 @@ import { GetEvents } from 'src/app/events/store/event.actions';
   styleUrls: ['./admin-wall.component.scss']
 })
 export class AdminWallComponent implements OnInit {
+  @Select(NewsState) news$: Observable<News>[];
+  @Input() news: News;
 
-  isGetNewsVisible = true;
 
   constructor(private store: Store) { }
 
   ngOnInit() {
     this.store.dispatch(new GetNews());
-    this.store.dispatch(new GetGallery());
   }
-
-
-
-  toggleForm(isGetNewsClick: boolean) {
-    if (
-      (isGetNewsClick && this.isGetNewsVisible) ||
-      (!isGetNewsClick && !this.isGetNewsVisible)
-    ) {
-      return;
-    }
-
-    this.isGetNewsVisible = !this.isGetNewsVisible;
-  }
-
 }

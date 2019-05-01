@@ -11,10 +11,11 @@ import { ErrorModule } from '../error/error.module';
 import { AuthState } from './store/auth.state';
 import { JwtInterceptor } from './services/jwt.interceptor';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { RegisterComponent } from './containers/register/register.component';
 
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, RegisterComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,

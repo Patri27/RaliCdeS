@@ -22,8 +22,13 @@ export class NewsService {
     });
   }
 
-  updateNews(news: News): Observable<News> {
-    return this.http.put<News>(`${environment.apiBaseUrl}/news/update`, news);
+  updateNews(_id: string, { title, content, category }: News): Observable<News> {
+    const news = {
+      title,
+      content,
+      category
+    };
+    return this.http.put<News>(`${environment.apiBaseUrl}/news/update?q=${_id}`, news);
   }
 
   removeNews(newsId: string): Observable<News> {

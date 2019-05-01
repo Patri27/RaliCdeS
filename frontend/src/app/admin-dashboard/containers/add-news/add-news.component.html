@@ -1,6 +1,6 @@
-<div class="container">
-  <form [formGroup]="newsForm"
-        (ngSubmit)="addNews()">
+<div id="container">
+  <rcs-form [formGroup]="newsForm"
+            (ngSubmit)="addNews()">
     <rcs-form-control [control]="newsForm.get('title')">
       <input type="text"
              placeholder="Título"
@@ -17,8 +17,10 @@
              placeholder="Categoría"
              formControlName="category" />
     </rcs-form-control>
-    <button type="submit">
-      Publicar
-    </button>
-  </form>
+    <div class="button-wrapper">
+      <button type="submit">
+        Publicar
+      </button>
+    </div>
+  </rcs-form>
 </div>

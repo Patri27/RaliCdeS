@@ -29,3 +29,33 @@ export class AddNewsFailed {
   static readonly type = '[News] AddNewsFailed';
   constructor(public errors: Error[]) { }
 }
+
+export class UpdateNews {
+  static readonly type = '[News] UpdateNews';
+  constructor(public _id: string, public newsRequest: News) { }
+}
+
+export class UpdateNewsSuccess {
+  static readonly type = '[News] UpdateNewsSuccess';
+  constructor(public news: News) { }
+}
+
+export class UpdateNewsFailed {
+  static readonly type = '[News] UpdateNewsFailed';
+  constructor(public errors: Error[]) { }
+}
+
+export class DeleteNews {
+  static readonly type = '[News] DeleteNews';
+  constructor(public id: string) { }
+}
+
+export class DeleteNewsSuccess {
+  static readonly type = '[News] DeleteNewsSuccess';
+  constructor(public news: News) { }
+}
+
+export class DeleteNewsFailed {
+  static readonly type = '[News] DeleteNewsFailed';
+  constructor(public errors: Error[]) { }
+}

@@ -1,15 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { MediaService } from 'src/app/media/services/media.service';
+
+class ImageSnippet {
+  pending = false;
+  status = 'init';
+
+  constructor(public src: string, public file: File) { }
+}
 
 @Component({
   selector: 'rcs-upload-photo',
   templateUrl: './upload-photo.component.html',
   styleUrls: ['./upload-photo.component.scss']
 })
-export class UploadPhotoComponent implements OnInit {
+export class UploadPhotoComponent {
+  selectedFile: File;
+  constructor(private mediaService: MediaService) { }
 
-  constructor() { }
-
-  ngOnInit() {
+  onFileChanged(event) {
+    this.selectedFile = event.target.files[0];
   }
 
+  onUpload() {
+    const file = this.selectedFile;
+    this.mediaService.uploadPhoto(file).subscribe();
+  }
 }
+

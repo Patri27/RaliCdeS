@@ -1,19 +1,23 @@
-<form class="form-group"
-      [formGroup]="loginForm"
-      (ngSubmit)="login()">
-  <rcs-form-control [control]="loginForm.get('email')">
-    <input type="text"
-           placeholder="Email"
-           formControlName="email" />
-  </rcs-form-control>
-  <rcs-form-control [control]="loginForm.get('password')">
-    <input type="password"
-           placeholder="Password"
-           formControlName="password" />
-  </rcs-form-control>
-  <div class="button-wrapper">
-    <button type="submit">
-      Login
-    </button>
+<rcs-form>
+  <div class="container">
+    <rcs-errors></rcs-errors>
+    <form [formGroup]="loginForm"
+          (ngSubmit)="login()">
+      <rcs-form-control [control]="loginForm.get('email')">
+        <input type="text"
+               placeholder="Email"
+               formControlName="email" />
+      </rcs-form-control>
+      <rcs-form-control [control]="loginForm.get('password')">
+        <input type="password"
+               placeholder="Contraseña"
+               formControlName="password" />
+      </rcs-form-control>
+      <div class="button-wrapper">
+        <button type="submit">
+          Login
+        </button>
+      </div>
+    </form>
   </div>
-</form>
+</rcs-form>

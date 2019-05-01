@@ -12,9 +12,14 @@ header {
 }
 
 a {
-  text-shadow: -0.5px 0 yellow, 0 0.5px yellow, 0.5px 0 yellow, 0 -0.5px yellow;
   text-decoration: none;
+  color: white;
 }
+
+a:hover {
+  color: white;
+}
+
 span {
   font-size: 2rem;
   color: yellow;
