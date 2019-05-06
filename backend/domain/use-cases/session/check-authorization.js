@@ -2,14 +2,20 @@
 
 const jwt = require('jsonwebtoken');
 
+const { AuthenticationError } = require('../../../webserver/errors/index');
+
 async function checkAuthorization(authorization) {
   if (!authorization) {
-    throw new Error('authorization was not provided');
+    throw new AuthenticationError();
   }
   const [prefix, token] = authorization.split(' ');
+  if (prefix !== 'JWT' || !token) {
+    throw new AuthenticationError();
+  }
+
   const decoded = jwt.verify(token, process.env.AUTH_JWT_SECRET);
 
-  return (prefix !== 'JWT' || !token || !decoded) ? new Error() : {
+  return (!decoded) ? new AuthenticationError() : {
     uuid: decoded.uuid,
     role: decoded.role,
   };

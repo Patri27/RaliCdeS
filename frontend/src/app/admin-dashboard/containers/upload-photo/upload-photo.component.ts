@@ -22,8 +22,9 @@ export class UploadPhotoComponent {
   }
 
   onUpload() {
-    const file = this.selectedFile;
-    this.mediaService.uploadPhoto(file).subscribe();
+    const formdata = new FormData();
+    formdata.append('file', this.selectedFile, this.selectedFile.name);
+    this.mediaService.uploadPhoto(formdata).subscribe();
   }
 }
 

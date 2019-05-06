@@ -41,8 +41,20 @@ app.use((err, req, res, next) => {
     return res.status(400).send(err);
   }
 
-  if (err.name === 'AuthenticatedError') {
-    return res.status(401).send();
+  if (err.name === 'AuthenticationError') {
+    return res.status(401).send(err);
+  }
+
+  if (err.name === 'ForbiddenError') {
+    return res.status(403).send(err);
+  }
+
+  if (err.name === 'ConflictError') {
+    return res.status(409).send(err);
+  }
+
+  if (err.name === 'PreconditionError') {
+    return res.status(412).send(err);
   }
 
   return res.status(500).send({

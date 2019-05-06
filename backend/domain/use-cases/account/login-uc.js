@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 
 const { emailSchema, passwordSchema } = require('../../../models/validations-models');
 const { checkIfUserExists } = require('../../repositories/account-repository');
+const { AuthenticationError, PreconditionError } = require('../../../webserver/errors/index');
 
 async function validate(payload) {
   const schema = {
@@ -17,11 +18,11 @@ async function validate(payload) {
 }
 
 function isActivated(userData) {
-  return userData.activated === 1;
+  return userData.verified;
 }
 
 async function isThePasswordValid(password, userData) {
-  const passwordChecked = await bcrypt.compare(password, userData.password);
+  const passwordChecked = await bcrypt.compare(password, userData.securePassword);
   return passwordChecked;
 }
 
@@ -30,15 +31,19 @@ async function loginUC(email, password) {
 
   const userData = await checkIfUserExists(email);
 
+  if (userData === null) {
+    throw new Error();
+  }
+
   const isAccountActivated = isActivated(userData);
   if (!isAccountActivated) {
-    throw new Error("Your account isn't verified yet");
+    throw new PreconditionError();
   }
 
   const isPasswordValid = await isThePasswordValid(password, userData);
 
   if (!isPasswordValid) {
-    throw new Error('The data you have provided is invalid, please try again');
+    throw new AuthenticationError();
   }
 
   const payloadJwt = {

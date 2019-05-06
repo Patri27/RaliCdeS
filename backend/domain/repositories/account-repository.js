@@ -1,7 +1,8 @@
 'use strict';
 
-const mysqlPool = require('../../databases/mysql-pool');
 const UserModel = require('../../models/user-model');
+const AccountModel = require('../../models/account-model');
+const VerificationModel = require('../../models/verification-model');
 
 // Create account functions
 /**
@@ -13,25 +14,47 @@ const UserModel = require('../../models/user-model');
  * @returns null
  */
 
-async function insertUserIntoMySQLDatabase(email, securePassword, uuid, createdAt) {
-  const connection = await mysqlPool.getConnection();
+async function insertAccountData(email, securePassword, uuid, createdAt) {
+  const verified = false;
+  const accountData = {
+    email, securePassword, uuid, createdAt, verified,
+  };
 
-  await connection.query('INSERT INTO users SET ?', {
-    uuid,
-    email,
-    password: securePassword,
-    created_at: createdAt,
-  });
+  await AccountModel.create(accountData);
+  return null;
+}
+
+async function insertVerificationCode(uuid, verificationCode) {
+  await VerificationModel.create({ uuid, verificationCode });
   return null;
 }
 
 /**
  * Insert user into mongodb
- * @param {String} uuid
- * @returns {String} uuid
+ * @param {Object} userProfileData
+ * @returns {Object} null
  */
-async function createUserInMongoDB(uuid, userProfileData) {
+async function createUserInMongoDB(userProfileData) {
   await UserModel.create(userProfileData);
+  return null;
+}
+
+/**
+ * Sets verification time and sets account to activated
+ * @param {string} verificationCode
+ */
+async function verifyAccount(verificationCode) {
+  const now = new Date().toISOString().substring(0, 19).replace('T', ' ');
+  const query = {
+    verificationCode,
+  };
+  const operation = {
+    verifiedAt: now,
+  };
+
+  await VerificationModel.updateOne(query, operation);
+  const { uuid } = await VerificationModel.findOne(query, { uuid: 1 });
+  await AccountModel.updateOne({ uuid }, { verified: true });
   return null;
 }
 
@@ -41,18 +64,22 @@ async function createUserInMongoDB(uuid, userProfileData) {
  * @returns {Object} result[0] --> User data
  */
 async function checkIfUserExists(email) {
-  const connection = await mysqlPool.getConnection();
-  const sqlQuery = `SELECT
-      uuid, email, password, activated
-      FROM users
-      WHERE email = '${email}'`;
+  const userData = await AccountModel.findOne(
+    { email },
+    {
+      securePassword: 1,
+      activated: 1,
+      verified: 1,
+    }
+  );
 
-  const [result] = await connection.query(sqlQuery);
-  return result.length ? result[0] : new Error();
+  return userData;
 }
 
 module.exports = {
-  insertUserIntoMySQLDatabase,
+  insertAccountData,
+  insertVerificationCode,
   createUserInMongoDB,
+  verifyAccount,
   checkIfUserExists,
 };

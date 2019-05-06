@@ -16,9 +16,7 @@ export class MediaService {
     return this.http.get<Photo[]>(`${environment.apiBaseUrl}/gallery`);
   }
 
-  uploadPhoto(image) {
-    return this.http.post(`${environment.apiBaseUrl}/media/upload`, {
-      file: image
-    });
+  uploadPhoto(file) {
+    return this.http.post(`${environment.apiBaseUrl}/media/upload`, file);
   }
 }
