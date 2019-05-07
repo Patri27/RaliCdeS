@@ -1,7 +1,6 @@
-<img src="{{ selectedFile }}">
 <input style="display: none"
        type="file"
-       (change)="onFileChanged($event)"
+       (change)="onFileSelected($event)"
        #fileInput>
 <button (click)="fileInput.click()">Selecciona un archivo</button>
 <button (click)="onUpload()">Subir</button>

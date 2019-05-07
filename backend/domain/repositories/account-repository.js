@@ -67,6 +67,7 @@ async function checkIfUserExists(email) {
   const userData = await AccountModel.findOne(
     { email },
     {
+      uuid: 1,
       securePassword: 1,
       activated: 1,
       verified: 1,

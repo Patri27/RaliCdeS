@@ -1,15 +1,24 @@
 a {
-  color: white;
+  color: black;
   padding: 1rem;
   display: inline-block;
   margin: 0.2rem;
+  text-decoration: none;
 }
 
 a:hover {
-  color: yellow;
+  color: darkslategray;
   cursor: pointer;
 }
 
 .id {
-  color: lightgray
+  color: lightgray;
+  padding: 0.5rem;
+}
+
+li {
+  background: white;
+  padding: 0.5rem 1rem;
+  width: 80vw;
+  border: 0.5px rgb(41, 39, 39);
 }

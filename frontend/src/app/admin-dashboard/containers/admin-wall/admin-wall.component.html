@@ -1,7 +1,9 @@
 <div>
-  <ng-container *ngFor="let item of (news$ | async)">
-    <ul>
-      <rcs-s-news [news]="news"></rcs-s-news>
-    </ul>
-  </ng-container>
+  <ul>
+    <ng-container *ngFor="let item of (news$ | async)">
+      <li>
+        <rcs-s-news [news]="item"></rcs-s-news>
+      </li>
+    </ng-container>
+  </ul>
 </div>

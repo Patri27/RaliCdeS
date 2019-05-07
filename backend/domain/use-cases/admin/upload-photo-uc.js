@@ -28,7 +28,6 @@ async function uploadPhotoUC(file, authorization) {
     }
 
     const {
-      etag,
       secure_url: secureUrl,
     } = result;
 
@@ -37,7 +36,7 @@ async function uploadPhotoUC(file, authorization) {
     } catch (e) {
       throw new Error(e.mesage);
     }
-    return etag;
+    return secureUrl;
   }).end(file.buffer);
 }
 

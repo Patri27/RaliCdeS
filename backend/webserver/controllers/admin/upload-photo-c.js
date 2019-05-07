@@ -7,8 +7,8 @@ async function uploadPhotoC(req, res, next) {
   const { authorization } = req.headers;
 
   try {
-    const etag = await uploadPhotoUC(file, authorization);
-    res.header('Etag', etag);
+    const secureUrl = await uploadPhotoUC(file, authorization);
+    res.header('Location', secureUrl);
     return res.status(204).send();
   } catch (e) {
     return next(e);
